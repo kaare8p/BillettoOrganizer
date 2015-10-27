@@ -43,10 +43,9 @@
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:background="@drawable/custombutton"
         android:id="@+id/loginButton"
-        android:onClick="onClickButton"
         android:text="Login"
         android:textColor="#ebfef9fa"
         android:textSize="20dp"
