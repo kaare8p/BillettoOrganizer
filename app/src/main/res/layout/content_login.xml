@@ -10,7 +10,7 @@
     tools:showIn="@layout/activity_login" tools:context=".LoginActivity">
 
     <ImageView
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/loginLogo"
         android:layout_marginTop="45dp"
@@ -53,13 +53,14 @@
         android:layout_marginTop="34dp"
         android:layout_below="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:layout_alignEnd="@+id/password" />
+        android:layout_alignEnd="@+id/password"
+        android:onClick="onClickLogin" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:background="@drawable/customgraybutton"
-        android:text="Create User"
+        android:text="Sign Up"
         android:textColor="#ebfef9fa"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -67,5 +68,6 @@
         android:layout_marginTop="15dp"
         android:layout_below="@+id/loginButton"
         android:layout_alignStart="@+id/loginButton"
-        android:layout_alignEnd="@+id/loginButton" />
+        android:layout_alignEnd="@+id/loginButton"
+        android:onClick="onClickSignUp" />
 </RelativeLayout>
