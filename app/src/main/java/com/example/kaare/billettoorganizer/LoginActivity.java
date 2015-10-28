@@ -51,12 +51,10 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickSignUp(View v){
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        Bundle b = new Bundle();
-        b.putString("email", email);
-        b.putString("password", password);
 
         Intent intent = new Intent(this, CreateUserActivity.class);
-        intent.putExtras(b);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
         startActivity(intent);
     }
 }
