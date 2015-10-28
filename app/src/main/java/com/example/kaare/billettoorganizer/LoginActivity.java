@@ -19,8 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button loginButton;
+public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
 
@@ -31,32 +30,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        loginButton = (Button) findViewById(R.id.loginButton);
         emailEditText = (EditText) findViewById(R.id.email);
         passwordEditText = (EditText) findViewById(R.id.password);
-        loginButton.setOnClickListener(this);
 
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                    loginButton.performClick();
+                    onClickLogin(v);
                 }
                 return false;
             }
         });
     }
 
-    @Override
-    public void onClick(View v) {
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
-
+    public void onClickLogin(View v) {
         Intent intent = new Intent(this, ActiveEvents.class);
         startActivity(intent);
     }
 
     public void onClickSignUp(View v){
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        Bundle b = new Bundle();
+        b.putString("email", email);
+        b.putString("password", password);
+
         Intent intent = new Intent(this, CreateUserActivity.class);
+        intent.putExtras(b);
         startActivity(intent);
     }
 }
