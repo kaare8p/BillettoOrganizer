@@ -1,5 +1,7 @@
 package com.example.kaare.billettoorganizer;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class ActiveEvents extends AppCompatActivity implements View.OnClickListener {
+    private static final String PREFS_NAME = "AUTHENTICATION_PREFS";
+    private SharedPreferences prefs;
+
     private TextView title;
     private ListView listView;
 
@@ -31,6 +36,8 @@ public class ActiveEvents extends AppCompatActivity implements View.OnClickListe
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
+
+        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         listView = (ListView) findViewById(R.id.listView);
 
@@ -74,8 +81,11 @@ public class ActiveEvents extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
+        if (id == R.id.action_logout) {
+            prefs.edit().putString("expirationDate", null).commit();
+            prefs.edit().putString("token", null).commit();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
