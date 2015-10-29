@@ -22,6 +22,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -47,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {;
     private SharedPreferences prefs;
 
     private EditText emailEditText;
+    private EditText passwordEditText;
+    private TextView fail;
     private String email;
     private String password;
 
@@ -58,7 +61,8 @@ public class LoginActivity extends AppCompatActivity {;
         setSupportActionBar(toolbar);
 
         emailEditText = (EditText) findViewById(R.id.email);
-        EditText passwordEditText = (EditText) findViewById(R.id.password);
+        fail = (TextView) findViewById(R.id.loginFail);
+        passwordEditText = (EditText) findViewById(R.id.password);
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -96,10 +100,14 @@ public class LoginActivity extends AppCompatActivity {;
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        email =  emailEditText.getText().toString(); //"test@gruppe2.dk";
+        password = passwordEditText.getText().toString(); //"test1234";
+
         new checkLogin().execute();
     }
 
     public void onClickSignUp(View v){
+        fail.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(this, CreateUserActivity.class);
         intent.putExtra("email", email);
         intent.putExtra("password", password);
@@ -118,9 +126,6 @@ public class LoginActivity extends AppCompatActivity {;
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setRequestProperty("ORGANIZATION", "1");
                 conn.setRequestProperty("Accept-Language", "en");
-
-                email = "test@gruppe2.dk"; //emailEditText.getText().toString();
-                password = "test1234"; //passwordEditText.getText().toString();
 
                 String body = "{\"email\":\"" + email + "\", \"password\":\"" + password + "\", \"device_id\":\"0001\"}";
                 conn.setDoOutput(true);
@@ -150,9 +155,11 @@ public class LoginActivity extends AppCompatActivity {;
 
         @Override
         protected void onPostExecute(Object response) {
+
             if (response instanceof Integer) {
-                emailEditText.setText("FAILFAIL");
+                fail.setVisibility(View.VISIBLE);
             } else {
+                fail.setVisibility(View.INVISIBLE);
                 try {
                     JSONObject JSONob = new JSONObject((String) response);
                     JSONObject JSONobData = JSONob.getJSONObject("data");
@@ -183,6 +190,7 @@ public class LoginActivity extends AppCompatActivity {;
         builder.setPositiveButton(R.string.exit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                fail.setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

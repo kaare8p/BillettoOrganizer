@@ -25,9 +25,9 @@
         android:ems="10"
         android:id="@+id/email"
         android:hint="E-mail Adress"
-        android:layout_below="@+id/loginLogo"
-        android:layout_alignStart="@+id/loginLogo"
-        android:layout_alignEnd="@+id/loginLogo" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/loginLogo" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -70,4 +70,15 @@
         android:layout_alignStart="@+id/loginButton"
         android:layout_alignEnd="@+id/loginButton"
         android:onClick="onClickSignUp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Login failed, try again"
+        android:id="@+id/loginFail"
+        android:layout_above="@+id/email"
+        android:layout_alignParentLeft="true"
+        android:textColor="#ff0000"
+        android:visibility="invisible" />
 </RelativeLayout>
