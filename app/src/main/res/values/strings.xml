@@ -5,4 +5,7 @@
     <string name="title_activity_active_events">Active Events</string>
     <string name="eventTitle">Active Events</string>
     <string name="title_activity_create_user">CreateUserActivity</string>
+    <string name="dialog_exit">Exit app?</string>
+    <string name="exit">Exit</string>
+    <string name="cancel">Cancel</string>
 </resources>

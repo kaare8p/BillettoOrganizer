@@ -1,5 +1,9 @@
 package com.example.kaare.billettoorganizer;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 public class ActiveEvents extends AppCompatActivity implements View.OnClickListener {
     private static final String PREFS_NAME = "AUTHENTICATION_PREFS";
     private SharedPreferences prefs;
+    private String token;
 
     private TextView title;
     private ListView listView;
@@ -38,6 +43,13 @@ public class ActiveEvents extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setCustomView(R.layout.actionbar_layout);
 
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String expirationDate = prefs.getString("expirationDate", null);
+        token = prefs.getString("token", null);
+        if (expirationDate == null || token == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+
 
         listView = (ListView) findViewById(R.id.listView);
 
@@ -82,8 +94,8 @@ public class ActiveEvents extends AppCompatActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            prefs.edit().putString("expirationDate", null).commit();
-            prefs.edit().putString("token", null).commit();
+            prefs.edit().putString("expirationDate", null).apply();
+            prefs.edit().putString("token", null).apply();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
@@ -93,5 +105,29 @@ public class ActiveEvents extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.dialog_exit);
+        builder.setPositiveButton(R.string.exit, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
