@@ -1,38 +1,26 @@
 package com.example.kaare.billettoorganizer;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -104,14 +92,6 @@ public class LoginActivity extends AppCompatActivity {;
         password = passwordEditText.getText().toString(); //"test1234";
 
         new checkLogin().execute();
-    }
-
-    public void onClickSignUp(View v){
-        fail.setVisibility(View.INVISIBLE);
-        Intent intent = new Intent(this, CreateUserActivity.class);
-        intent.putExtra("email", email);
-        intent.putExtra("password", password);
-        startActivity(intent);
     }
 
     private class checkLogin extends AsyncTask<Objects, Object, Object> {

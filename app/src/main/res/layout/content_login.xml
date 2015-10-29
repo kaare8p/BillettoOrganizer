@@ -56,21 +56,6 @@
         android:layout_alignEnd="@+id/password"
         android:onClick="onClickLogin" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:background="@drawable/customgraybutton"
-        android:text="Sign Up"
-        android:textColor="#ebfef9fa"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:id="@+id/createUserButton"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/loginButton"
-        android:layout_alignStart="@+id/loginButton"
-        android:layout_alignEnd="@+id/loginButton"
-        android:onClick="onClickSignUp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
